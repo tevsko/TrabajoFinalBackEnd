@@ -1,0 +1,36 @@
+<%- include('template/cabecera', {tituloweb: 'Pagina de inicio'}) %>
+<div class="container">
+  <h1>Creacion de Caballeros</h1>
+  <a class="btn btn-success btn-block my-4"
+  href="/caballeros/crear">  
+    Crear Caballeros
+  </a>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Constelacion</th>
+            <th scope="col">Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% if (arrayCaballeros.length > 0) { %>
+                <% arrayCaballeros.forEach(Caballero => { %>
+                    <tr>
+                        <th scope="row"><%= Caballero.id %> </th>
+                        <td><%= Caballero.nombre %> </td>
+                        <td><%= Caballero.constelacion %> </td>
+                        <td>
+                          <a href="/caballeros/<%= Caballero.id %>"
+                          class="btn btn-warning btn-sm">editar</a></td>
+                      </tr>
+                <% }) %>
+               <% } %>
+        </tbody>
+      </table>
+</div>
+
+    <%- include('template/footer') %>
+
+

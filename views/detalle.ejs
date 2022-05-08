@@ -1,0 +1,82 @@
+<%- include('template/cabecera', {tituloweb: 'detalle caballero'}) %>
+<div class="container">
+    <h1>Detalle caballeros</h1>
+    <% if (error) { %>
+        <p>
+            <%= mensaje %> 
+        </p>
+        <a href="/caballeros" class="btn btn-dark btn-block">Volver a caballeros</a>
+     
+    <% } %>
+    <% if (!error) { %>
+        <form id="formularioEditar" data-id="<%= caballero.id %>">
+            <input type="text" class="form-control my-2"
+            name="nombre"
+            value="<%= caballero.nombre %>"
+            id="nombreInput"
+            >
+            <input type="text" class="form-control my-2"
+            name="constelacion"
+            value="<%= caballero.constelacion %>"
+            id="constelacionInput"
+            >
+            <button class="btn btn-warning btn-block"
+            type="submit"
+            >Editar</button>            
+        </form>
+        <hr>
+        <button
+        class="btn btn-danger btn-sm mt-5"
+        id="btnEliminar"
+        data-id="<%= caballero.id %>">Eliminar
+    </button>        
+        
+    <% } %>
+</div>
+    <%- include('template/footer') %>
+
+<script>
+    const btnEliminar = document.querySelector('#btnEliminar')
+    btnEliminar.addEventListener('click', async()=>{
+        console.log('diste click')
+        const id = btnEliminar.dataset.id
+        try {
+            const data = await fetch(`/caballeros/${id}`, {
+                method: 'delete'
+            })
+            const res = await data.json()
+            if (res.estado) {
+                window.location.href = '/caballeros'
+            } else {
+                
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    })
+    const formularioEditar = document.querySelector('#formularioEditar')
+
+    formularioEditar.addEventListener('submit', async (e) =>{
+        e.preventDefault()
+        const nombre = document.querySelector('#nombreInput').value
+        const constelacion = document.querySelector('#constelacionInput').value
+        const id = formularioEditar.dataset.id
+
+        const data = await fetch(`/caballeros/${id}`, {
+        method: 'PUT',
+        headers: {
+        'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({nombre, constelacion})
+            })
+            const res = await data.json()
+            if (res.estado) {
+                window.location.href = '/caballeros'
+            } else {
+                console.log(res)
+            }
+            console.log(res)
+
+        console.log('nombre, constelacion, id')
+    })
+</script>
