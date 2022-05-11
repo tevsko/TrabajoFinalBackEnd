@@ -72,7 +72,7 @@ router.delete('/:id', async (req, res)=>{
 })
 
 router.put('/:id', async ( req, res)=>{
-    const id = req.params.body
+    const id = req.params.id;
     const body = req.body
     try {
         const caballeroDB = await Caballero.findByIdAndUpdate(id, body, {useFindAndModify: false})

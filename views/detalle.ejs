@@ -20,6 +20,11 @@
             value="<%= caballero.constelacion %>"
             id="constelacionInput"
             >
+            <input type="text" class="form-control my-2"
+            name="categoria"
+            value="<%= caballero.categoria %>"
+            id="categoriaInput"
+            >
             <button class="btn btn-warning btn-block"
             type="submit"
             >Editar</button>            
@@ -60,6 +65,7 @@
         e.preventDefault()
         const nombre = document.querySelector('#nombreInput').value
         const constelacion = document.querySelector('#constelacionInput').value
+        const categoria = document.querySelector('#categoriaInput').value
         const id = formularioEditar.dataset.id
 
         const data = await fetch(`/caballeros/${id}`, {
@@ -67,7 +73,7 @@
         headers: {
         'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({nombre, constelacion})
+                body: JSON.stringify({nombre, constelacion, categoria})
             })
             const res = await data.json()
             if (res.estado) {
@@ -77,6 +83,6 @@
             }
             console.log(res)
 
-        console.log('nombre, constelacion, id')
+        console.log('nombre, constelacion, categoria, id')
     })
 </script>

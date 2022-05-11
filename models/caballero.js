@@ -2,8 +2,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const caballeroSchema = new Schema({
-    nombre: String,
-    constelacion: String
+    nombre: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    constelacion: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    categoria: {
+        type: String,
+        required: true,
+        trim: true,
+    }
 })
 
 const Caballero = mongoose.model('Caballero', caballeroSchema);
